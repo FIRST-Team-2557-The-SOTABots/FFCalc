@@ -7,9 +7,11 @@ package frc.robot;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.subsystems.Characterizable;
 import frc.robot.subsystems.SwerveAngleMotor;
+import frc.robot.subsystems.SwerveSpeedMotor;
 
 import java.util.ArrayList;
 
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
@@ -38,6 +40,7 @@ public class RobotContainer {
       new CommandXboxController(OperatorConstants.kDriverControllerPort);
 
   private final SwerveAngleMotor swerveAngleMotor;
+  private final SwerveSpeedMotor swerveSpeedMotors;
   private final Characterizable testSystem;
   // private SequentialCommandGroup sampleCommand;
 
@@ -49,8 +52,15 @@ public class RobotContainer {
     // Configure the trigger bindings
     CANSparkMax angleMotor = new CANSparkMax(3, MotorType.kBrushless);
     AnalogInput angleEncoder = new AnalogInput(2);
+    WPI_TalonFX[] speedMotors = { // TODO: add correct ids
+      new WPI_TalonFX(0), 
+      new WPI_TalonFX(0),
+      new WPI_TalonFX(0),
+      new WPI_TalonFX(0),
+    };
     swerveAngleMotor = new SwerveAngleMotor(angleMotor, angleEncoder);
-    testSystem = swerveAngleMotor;
+    swerveSpeedMotors = new SwerveSpeedMotor(speedMotors);
+    testSystem = swerveSpeedMotors;
 
     // updateSampleCommand();
 
